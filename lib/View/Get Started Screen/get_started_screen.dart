@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:swiggy_clone_project/View/Login%20Screen/login_screen.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
+import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
+
+import '../Global_widgets/common_button.dart';
 
 class GetStartedScreen extends StatefulWidget {
   const GetStartedScreen({super.key});
@@ -14,14 +18,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/bg video final.gif'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          _backgroundgif(),
           Positioned(
             top: 520.0,
             left: 20.0,
@@ -41,7 +38,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               width: 85,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('assets/images/og logo.png'),
+                      image: AssetImage(ImageConstants.LOGO_TRANSPARENT),
                       opacity: 0.6)),
             ),
           ),
@@ -110,21 +107,25 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
           Positioned(
               top: 710,
               left: 20,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text("Get Started"),
-                style: ButtonStyle(
-                    minimumSize: WidgetStatePropertyAll(Size(350, 60)),
-                    backgroundColor:
-                        WidgetStatePropertyAll(ColorConstants.primaryColor),
-                    shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10))),
-                    foregroundColor:
-                        WidgetStatePropertyAll(ColorConstants.mainwhite),
-                    textStyle: WidgetStatePropertyAll(
-                        TextStyle(fontSize: 19, fontWeight: FontWeight.bold))),
+              child: CommonButton(
+                buttonText: "Get Started",
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                },
               ))
         ],
+      ),
+    );
+  }
+
+  Container _backgroundgif() {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(ImageConstants.GET_STARTED_SCREEN_BG),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
