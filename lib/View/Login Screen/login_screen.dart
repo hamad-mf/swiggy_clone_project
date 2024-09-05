@@ -1,7 +1,13 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/common_button.dart';
-import 'package:swiggy_clone_project/View/Home%20Screen/home_screen.dart';
+
+import 'package:swiggy_clone_project/View/temp/temp.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
+
+import 'package:swiggy_clone_project/View/otp Verification Screen/otp_verification_screen.dart';
+
+import 'package:swiggy_clone_project/View/Home Screen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,6 +17,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController _mobilenocontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -44,7 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                           (context),
                           MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
+                              builder: (context) => HomeScreen(
+                                    otp: '',
+                                  )));
                     },
                     child: Text(
                       "Skip",
@@ -69,6 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 20,
             ),
             TextFormField(
+              controller: _mobilenocontroller,
+              maxLength: 10,
               decoration: InputDecoration(
                 labelText: "Mobile Number",
                 labelStyle: TextStyle(
@@ -108,7 +121,27 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             CommonButton(
               buttonText: "Get OTP",
-              onPressed: () {},
+              onPressed: () {
+                if (_mobilenocontroller.text.length == 10) {
+                  Random random = Random();
+                  String otp = (random.nextInt(900000) + 100000)
+                      .toString(); //generating random otp
+
+                  //navigating
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OtpVerificationScreen(
+                                otp: otp,
+                                mobno: _mobilenocontroller.text,
+                              )));
+                } else {
+                  //error message
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text("please enter a valid mobile no")));
+                }
+              },
             ),
             SizedBox(
               height: 20,
@@ -143,6 +176,124 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Column _uiElements(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Back Button and Skip Button
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back_outlined,
+                size: 30,
+              ),
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                minimumSize: WidgetStateProperty.all(Size(110, 50)),
+                backgroundColor:
+                    WidgetStateProperty.all(ColorConstants.mainblack),
+                foregroundColor:
+                    WidgetStateProperty.all(ColorConstants.mainwhite),
+                shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10))),
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Temp()));
+              },
+              child: Text(
+                "Skip",
+                style: TextStyle(
+                    color: ColorConstants.mainwhite,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 20),
+        Text(
+          "Enter your mobile\nnumber to get OTP",
+          style: TextStyle(
+              color: ColorConstants.mainblack,
+              fontSize: 30,
+              fontWeight: FontWeight.w900),
+        ),
+        SizedBox(height: 20),
+        // Phone Number Input Field
+        TextFormField(
+          controller: _mobilenocontroller,
+          decoration: InputDecoration(
+            labelText: "Mobile Number",
+            labelStyle: TextStyle(color: ColorConstants.primaryColor),
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            hintText: "10 digit mobile number",
+            prefix: Text(
+              "+91  |  ",
+              style: TextStyle(
+                color: ColorConstants.mainblack,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            hintStyle: TextStyle(
+              color: Colors.grey.shade500,
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: ColorConstants.primaryColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: ColorConstants.primaryColor),
+            ),
+          ),
+          keyboardType: TextInputType.phone,
+        ),
+        SizedBox(height: 30),
+        CommonButton(
+          buttonText: "Get OTP",
+          onPressed: () {}, // Navigate to OTP screen on press
+        ),
+        SizedBox(height: 20),
+        // Terms and Privacy Policy
+        RichText(
+          text: TextSpan(
+            text: "By clicking, I accept the ",
+            style: TextStyle(fontSize: 15, color: ColorConstants.mainblack),
+            children: [
+              TextSpan(
+                text: "terms of service ",
+                style: TextStyle(
+                    color: ColorConstants.mainblack,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline),
+              ),
+              TextSpan(
+                text: "and",
+                style: TextStyle(color: ColorConstants.mainblack),
+              ),
+              TextSpan(
+                text: "\nprivacy policy",
+                style: TextStyle(
+                    color: ColorConstants.mainblack,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
