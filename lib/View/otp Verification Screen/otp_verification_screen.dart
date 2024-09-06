@@ -114,7 +114,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                               setState(() {
                                 if (_otpcontroller.text == widget.otp) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("OTP verified")),
+                                    SnackBar(content: Text("OTP verified"),
+                                    ),
                                   );
 
                                   Navigator.push(
