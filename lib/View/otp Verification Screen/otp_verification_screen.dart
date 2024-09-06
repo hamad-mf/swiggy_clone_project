@@ -9,8 +9,7 @@ class OtpVerificationScreen extends StatefulWidget {
   final String otp;
   final String mobno;
 
-  const OtpVerificationScreen(
-      {required this.mobno, required this.otp, super.key});
+  OtpVerificationScreen({required this.mobno, required this.otp, super.key});
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -18,14 +17,35 @@ class OtpVerificationScreen extends StatefulWidget {
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   TextEditingController _otpcontroller = TextEditingController();
-  bool _showbanner = true;
-  int _timerseconds = 5;
-  Timer? _timer;
+  bool _showbanner = true; //to show the banner with the otp
+  int _timerseconds = 30; // time limit to show the otp banner
+  Timer? _timer; //timer for the banner
+  bool _showRetryButton = false; // to on or off the retry button
+  Timer? _retryTimer; //timer  for to get the retry button visible
+  int _retryTimerSeconds = 40; //set the time limit ot visible the retry button
 
   @override
   void initState() {
     super.initState();
-    _starttimer();
+    _starttimer(); //this will start the otp bannertime
+    _startRetryTimer(); //this will start the retry button visibile timer
+  }
+
+  void _startRetryTimer() {
+    //start the rerty countdown timer
+    _retryTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_retryTimerSeconds > 0) {
+        setState(() {
+          _retryTimerSeconds--; //decrease the countdown in each 1 sec
+        });
+      } else {
+        //what happens when the timer finishes
+        setState(() {
+          _showRetryButton = true; //this will show the retry button
+        });
+        _retryTimer?.cancel(); //to off the retry timer
+      }
+    });
   }
 
   void _starttimer() {
@@ -50,6 +70,13 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       _showbanner = false;
       _timer?.cancel();
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); //cancel the otp banner timer
+    _retryTimer?.cancel(); // cancel the retry countodn timer
+    super.dispose();
   }
 
   @override
@@ -114,14 +141,17 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                               setState(() {
                                 if (_otpcontroller.text == widget.otp) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("OTP verified"),
+                                    SnackBar(
+                                      content: Text("OTP verified"),
                                     ),
                                   );
 
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => HomeScreen(otp: '',)));
+                                          builder: (context) => HomeScreen(
+                                                otp: '',
+                                              )));
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: Text("invalid OTP")),
@@ -131,45 +161,90 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             }),
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 15, top: 35, right: 15),
+                              left: 15, top: 15, right: 15),
                           child: Row(
                             children: [
-                              Text("Did'nt recieve it? "),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    _showbanner = true; // Reshow the banner
-                                    _timerseconds =
-                                        5; // Reset the timer seconds
-                                  });
-                                  _starttimer(); // Restart the timer
-                                },
-                                child: Text("retry"),
-                              ),
+                              if (!_showRetryButton)
+                                Text(
+                                    "Didn't recieve it? Retry in $_retryTimerSeconds s"),
+                              if (_showRetryButton)
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Retry via:",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 12,
+                                    ),
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                            minimumSize: WidgetStatePropertyAll(
+                                                Size(50, 50)),
+                                            shape: WidgetStatePropertyAll(
+                                                RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius
+                                                        .circular(6))),
+                                            backgroundColor:
+                                                WidgetStatePropertyAll(
+                                                    const Color.fromARGB(
+                                                            255, 239, 236, 209)
+                                                        .withOpacity(0.1))),
+                                        child: Text(
+                                          "OTP",
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        onPressed: () {
+                                          //reset both timers and show the banner agin
+                                          setState(() {
+                                            _showbanner =
+                                                true; //this will show the banner again
+                                            _timerseconds =
+                                                30; // reset the otp banner time to 5 sec
+                                            _retryTimerSeconds =
+                                                40; //sets the retyr timer to 30 again
+                                            _showRetryButton =
+                                                false; //this will hide the retry button agi
+                                          });
+                                          _starttimer(); //restarts the otp banner time
+                                          _startRetryTimer(); //restarts the retry  countowndn
+                                        }),
+                                  ],
+                                )
                             ],
                           ),
                         ),
                         SizedBox(
-                          height: 152,
+                          height: 120,
                         ),
                       ],
                     ),
                   ),
                   Positioned(
-                    top: 290,
+                    top: 250,
                     right: 0,
                     left: 0,
                     child: AnimatedOpacity(
                       opacity: _showbanner ? 1.0 : 00,
                       duration: Duration(milliseconds: 700),
                       child: Container(
-                        color: ColorConstants.primaryColor,
-                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            color: ColorConstants.primaryColor,
+                            borderRadius: BorderRadius.circular(12)),
+                        padding: EdgeInsets.all(5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            SizedBox(
+                              width: 1,
+                            ),
                             Text(
-                              "Your OTP is ${widget.otp}",
+                              "Your OTP is   ${widget.otp}",
                               style: TextStyle(
                                   color: ColorConstants.mainwhite,
                                   fontSize: 18,

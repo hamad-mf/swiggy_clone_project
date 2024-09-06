@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/common_button.dart';
 
-import 'package:swiggy_clone_project/View/temp/temp.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 
 import 'package:swiggy_clone_project/View/otp Verification Screen/otp_verification_screen.dart';
