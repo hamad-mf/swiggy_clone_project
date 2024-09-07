@@ -85,7 +85,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         TextFormField(
           controller: _mobilenocontroller,
-          maxLength: 10,
           decoration: InputDecoration(
             labelText: "Mobile Number",
             labelStyle: TextStyle(
