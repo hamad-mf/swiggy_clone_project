@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,6 +10,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List screens = [
+    
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

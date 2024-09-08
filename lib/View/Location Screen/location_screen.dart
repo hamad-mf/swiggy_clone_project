@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:swiggy_clone_project/View/Add%20Address/add_address.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/common_button.dart';
+import 'package:swiggy_clone_project/View/temp/temp.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
 
@@ -51,15 +53,48 @@ class _LocationScreenState extends State<LocationScreen> {
                     right: 20,
                     left: 20,
                     child: CommonButton(
-                        buttonText: "Allow location access", onPressed: () {}),
+                        buttonText: "Allow location access",
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    backgroundColor: ColorConstants.mainblack,
+                                    content: Text(
+                                      "Allow Swiggy to access this device's location?",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: ColorConstants.mainwhite),
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Temp()));
+                                        },
+                                        child: Text("Yes"),
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("No"))
+                                    ],
+                                  ));
+                        }),
                   ),
                   Positioned(
                     bottom: 95,
                     right: 0,
-                    left: 108,
+                    left: 100,
                     child: InkWell(
                       onTap: () {
-                        print("tapped");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddAddress()));
                       },
                       child: Text(
                         "Enter Location Manually",
