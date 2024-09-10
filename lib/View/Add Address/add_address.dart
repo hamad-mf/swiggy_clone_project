@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:swiggy_clone_project/View/temp/temp.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:swiggy_clone_project/View/Add%20New%20Address/add_new_adress.dart';
+import 'package:swiggy_clone_project/View/Bottom%20Navbar%20Screen/bottom_navbar_Screen.dart';
+
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 
 class AddAddress extends StatefulWidget {
-  const AddAddress({super.key});
+  IconData? selectedIcon;
+  String adname = "Home";
+  String addistrict = "Thrissur";
+  String adlocality = "azhicode";
+  String adlandmark = "raja auditorium";
+  bool visible = false;
+  AddAddress(
+      {required this.adname,
+      required this.selectedIcon,
+      required this.visible,
+      required this.addistrict,
+      required this.adlandmark,
+      required this.adlocality,
+      super.key});
 
   @override
   State<AddAddress> createState() => _AddAddressState();
@@ -12,6 +28,7 @@ class AddAddress extends StatefulWidget {
 class _AddAddressState extends State<AddAddress> {
   @override
   Widget build(BuildContext context) {
+    bool IsVisibleTrue = widget.visible;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -21,7 +38,7 @@ class _AddAddressState extends State<AddAddress> {
             child: Icon(Icons.arrow_back)),
         titleSpacing: 0,
         title: Text(
-          "Enter your adress details",
+          "Enter your adress details ",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -101,12 +118,20 @@ class _AddAddressState extends State<AddAddress> {
                 SizedBox(
                   width: 5,
                 ),
-                Text(
-                  "Add new adress",
-                  style: TextStyle(
-                      color: ColorConstants.primaryColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddNewAdress()));
+                  },
+                  child: Text(
+                    "Add new adress",
+                    style: TextStyle(
+                        color: ColorConstants.primaryColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
                 SizedBox(
                   width: 120,
@@ -132,57 +157,97 @@ class _AddAddressState extends State<AddAddress> {
             SizedBox(
               height: 20,
             ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Temp()));
-              },
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 20),
-                    child: Row(
-                      children: [
-                        Icon(Icons.home_filled),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "Home",
-                          style: TextStyle(
-                              color: ColorConstants.mainblack,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
-                        ),
-                        SizedBox(
-                          width: 253,
-                        ),
-                        Icon(
-                          Icons.more_vert,
-                          size: 30,
-                        )
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 5, left: 20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
+            if (IsVisibleTrue)
+              InkWell(
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BottomNavbarScreen(
+                                adname: widget.adname,
+                                addistrict: widget.addistrict,
+                                adlandmark: widget.adlandmark,
+                                adlocality: widget.adlocality,
+                                selectedIcon: widget.selectedIcon,
+                              )));
+                },
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, left: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Kodungallur, Azhicode, Kerala, India",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(color: ColorConstants.retrytxt),
+                          Row(
+                            children: [
+                              Icon(widget.selectedIcon),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                widget.adname,
+                                style: TextStyle(
+                                    color: ColorConstants.mainblack,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16),
+                              ),
+                            ],
                           ),
+                          PopupMenuButton(
+                              iconSize: 24,
+                              itemBuilder: (context) => [
+                                    PopupMenuItem(
+                                      child: Text("Delete"),
+                                      onTap: () {
+                                        Future.delayed(
+                                            Duration.zero,
+                                            () => setState(() {
+                                                  widget.visible = false;
+                                                }));
+                                      },
+                                    )
+                                  ])
                         ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  widget.addistrict,
+                                  textAlign: TextAlign.left,
+                                  style:
+                                      TextStyle(color: ColorConstants.retrytxt),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(widget.adlocality,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        color: ColorConstants.retrytxt)),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(widget.adlandmark,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        color: ColorConstants.retrytxt)),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
           ],
         ),
       ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:swiggy_clone_project/View/Add%20Address/add_address.dart';
+import 'package:swiggy_clone_project/View/Bottom%20Navbar%20Screen/bottom_navbar_Screen.dart';
+
 import 'package:swiggy_clone_project/View/Global_widgets/common_button.dart';
-import 'package:swiggy_clone_project/View/temp/temp.dart';
+
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
 
@@ -77,7 +78,7 @@ class _AllowNotificationState extends State<AllowNotification> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Temp()));
+                                                      BottomNavbarScreen()));
                                         },
                                         child: Text("Yes"),
                                       ),
@@ -97,7 +98,7 @@ class _AllowNotificationState extends State<AllowNotification> {
                     child: InkWell(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Temp()));
+                            MaterialPageRoute(builder: (context) => BottomNavbarScreen()));
                       },
                       child: Text(
                         "Not Now",

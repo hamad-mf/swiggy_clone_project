@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:swiggy_clone_project/View/Allow%20Notification/allow_notification.dart';
-import 'package:swiggy_clone_project/View/Bottom%20Navbar%20Screen/bottom_navbar_Screen.dart';
 import 'package:swiggy_clone_project/View/Location%20Screen/location_screen.dart';
+
+
 import 'package:swiggy_clone_project/View/Splash%20Screen/splash_screen.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNavbarScreen(),
+      home: LocationScreen(),
     );
   }
 }

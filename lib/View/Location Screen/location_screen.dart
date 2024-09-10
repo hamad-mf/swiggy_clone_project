@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiggy_clone_project/View/Add%20Address/add_address.dart';
+import 'package:swiggy_clone_project/View/Bottom%20Navbar%20Screen/bottom_navbar_Screen.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/common_button.dart';
-import 'package:swiggy_clone_project/View/temp/temp.dart';
+
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
 
@@ -72,7 +74,15 @@ class _LocationScreenState extends State<LocationScreen> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Temp()));
+                                                      BottomNavbarScreen(
+                                                        adname: "default",
+                                                        addistrict: "default",
+                                                        adlandmark: "default",
+                                                        adlocality: "default",
+                                                        selectedIcon:
+                                                            FontAwesomeIcons
+                                                                .building,
+                                                      )));
                                         },
                                         child: Text("Yes"),
                                       ),
@@ -94,7 +104,14 @@ class _LocationScreenState extends State<LocationScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AddAddress()));
+                                builder: (context) => AddAddress(
+                                      selectedIcon: Icons.ac_unit,
+                                      visible: false,
+                                      adname: "",
+                                      addistrict: "",
+                                      adlandmark: "",
+                                      adlocality: "",
+                                    )));
                       },
                       child: Text(
                         "Enter Location Manually",

@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/common_button.dart';
-import 'package:swiggy_clone_project/View/Home%20Screen/home_screen.dart';
+
 import 'package:swiggy_clone_project/View/Location%20Screen/location_screen.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 
