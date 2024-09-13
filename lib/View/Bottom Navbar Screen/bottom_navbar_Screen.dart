@@ -5,11 +5,11 @@ import 'package:swiggy_clone_project/View/Reorder%20Screen/reorder_screen.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 
 class BottomNavbarScreen extends StatefulWidget {
-  final String adname;
-  final IconData? selectedIcon;
-  final String addistrict;
-  final String adlocality;
-  final String adlandmark;
+  String adname = "Home";
+  IconData? selectedIcon;
+  String addistrict = "Thrissu";
+  String adlocality = "Azhicode";
+  String adlandmark = "auditorium";
 
   BottomNavbarScreen({
     required this.adname,

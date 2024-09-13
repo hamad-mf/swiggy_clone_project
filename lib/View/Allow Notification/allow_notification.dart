@@ -7,7 +7,18 @@ import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
 
 class AllowNotification extends StatefulWidget {
-  const AllowNotification({super.key});
+  String passadname;
+  String passadlocality;
+  String passaddistrict;
+  String passadlandmark;
+  IconData? passselectedicon;
+  AllowNotification(
+      {required this.passaddistrict,
+      required this.passadlandmark,
+      required this.passadlocality,
+      required this.passadname,
+      required this.passselectedicon,
+      super.key});
 
   @override
   State<AllowNotification> createState() => _AllowNotificationState();
@@ -78,7 +89,18 @@ class _AllowNotificationState extends State<AllowNotification> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      BottomNavbarScreen()));
+                                                      BottomNavbarScreen(
+                                                        selectedIcon: widget
+                                                            .passselectedicon,
+                                                        adname:
+                                                            widget.passadname,
+                                                        addistrict: widget
+                                                            .passaddistrict,
+                                                        adlandmark: widget
+                                                            .passadlandmark,
+                                                        adlocality: widget
+                                                            .passadlocality,
+                                                      )));
                                         },
                                         child: Text("Yes"),
                                       ),
@@ -97,8 +119,16 @@ class _AllowNotificationState extends State<AllowNotification> {
                     left: 170,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => BottomNavbarScreen()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BottomNavbarScreen(
+                                      selectedIcon: widget.passselectedicon,
+                                      adname: widget.passadname,
+                                      addistrict: widget.passaddistrict,
+                                      adlandmark: widget.passadlandmark,
+                                      adlocality: widget.passadlocality,
+                                    )));
                       },
                       child: Text(
                         "Not Now",

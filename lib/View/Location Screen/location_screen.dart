@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiggy_clone_project/View/Add%20Address/add_address.dart';
+import 'package:swiggy_clone_project/View/Allow%20Notification/allow_notification.dart';
 import 'package:swiggy_clone_project/View/Bottom%20Navbar%20Screen/bottom_navbar_Screen.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/common_button.dart';
 
@@ -74,14 +75,16 @@ class _LocationScreenState extends State<LocationScreen> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      BottomNavbarScreen(
-                                                        adname: "default",
-                                                        addistrict: "default",
-                                                        adlandmark: "default",
-                                                        adlocality: "default",
-                                                        selectedIcon:
-                                                            FontAwesomeIcons
-                                                                .building,
+                                                      AllowNotification(
+                                                        passadname: "Home",
+                                                        passaddistrict:
+                                                            "Thrissur",
+                                                        passadlandmark:
+                                                            "auditorium",
+                                                        passadlocality:
+                                                            "azhicode",
+                                                        passselectedicon:
+                                                            Icons.home,
                                                       )));
                                         },
                                         child: Text("Yes"),
@@ -105,6 +108,7 @@ class _LocationScreenState extends State<LocationScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => AddAddress(
+                                      isSelected: false,
                                       selectedIcon: Icons.ac_unit,
                                       visible: false,
                                       adname: "",

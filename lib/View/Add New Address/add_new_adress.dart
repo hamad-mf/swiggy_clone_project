@@ -169,6 +169,7 @@ class _AddNewAdressState extends State<AddNewAdress> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => AddAddress(
+                                    isSelected: false,
                                     selectedIcon: selectedIcon,
                                     visible: true,
                                     adname: adrsnamecontroller.text,

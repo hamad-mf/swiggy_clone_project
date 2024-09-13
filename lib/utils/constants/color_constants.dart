@@ -8,4 +8,6 @@ class ColorConstants {
   static Color buttonbg = Color(0xfffeede5);
   static Color buttontxt = Color(0xffe35914);
   static Color retrytxt = Color(0xff69696a);
+  static Color profilebg = Color(0xff535359);
+  static Color searchfieldbg = Color(0xfff0f0f4);
 }

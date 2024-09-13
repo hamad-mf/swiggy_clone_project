@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:swiggy_clone_project/View/Add%20New%20Address/add_new_adress.dart';
+import 'package:swiggy_clone_project/View/Allow%20Notification/allow_notification.dart';
 import 'package:swiggy_clone_project/View/Bottom%20Navbar%20Screen/bottom_navbar_Screen.dart';
 
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
@@ -12,10 +13,12 @@ class AddAddress extends StatefulWidget {
   String adlocality = "azhicode";
   String adlandmark = "raja auditorium";
   bool visible = false;
+  bool isSelected = false;
   AddAddress(
       {required this.adname,
       required this.selectedIcon,
       required this.visible,
+      required this.isSelected,
       required this.addistrict,
       required this.adlandmark,
       required this.adlocality,
@@ -163,12 +166,12 @@ class _AddAddressState extends State<AddAddress> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BottomNavbarScreen(
-                                adname: widget.adname,
-                                addistrict: widget.addistrict,
-                                adlandmark: widget.adlandmark,
-                                adlocality: widget.adlocality,
-                                selectedIcon: widget.selectedIcon,
+                          builder: (context) => AllowNotification(
+                                passadname: widget.adname,
+                                passaddistrict: widget.addistrict,
+                                passadlandmark: widget.adlandmark,
+                                passadlocality: widget.adlocality,
+                                passselectedicon: widget.selectedIcon,
                               )));
                 },
                 child: Column(
@@ -184,12 +187,28 @@ class _AddAddressState extends State<AddAddress> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                widget.adname,
-                                style: TextStyle(
-                                    color: ColorConstants.mainblack,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16),
+                              Row(
+                                children: [
+                                  Text(
+                                    widget.adname,
+                                    style: TextStyle(
+                                        color: ColorConstants.mainblack,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  SizedBox(
+                                    width: 12,
+                                  ),
+                                  if (widget.isSelected)
+                                    Container(
+                                      width: 150,
+                                      height: 20,
+                                      color: Colors.green.withOpacity(0.2),
+                                      child: Text(
+                                        "CURRENTLY SELECTED",
+                                      ),
+                                    )
+                                ],
                               ),
                             ],
                           ),

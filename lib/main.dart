@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:swiggy_clone_project/View/Location%20Screen/location_screen.dart';
-
-
 import 'package:swiggy_clone_project/View/Splash%20Screen/splash_screen.dart';
 
 void main() {
