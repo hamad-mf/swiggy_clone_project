@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:swiggy_clone_project/View/Add%20Address/add_address.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
@@ -22,6 +25,38 @@ class FoodScreen extends StatefulWidget {
 }
 
 class _FoodScreenState extends State<FoodScreen> {
+  final PageController _controller = PageController();
+  final int _numPages = 2;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      int nextPage = _controller.page!.round() + 1; //next page to
+      if (nextPage >= _numPages) {
+        //if its last slide go back to first
+        _controller.animateToPage(0,
+            duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
+      } else {
+        //move to next page
+        _controller.animateToPage(nextPage,
+            duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
+      }
+    });
+  }
+
+
+
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _controller.dispose();
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -75,6 +110,45 @@ class _FoodScreenState extends State<FoodScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                      height: 150,
+                      width: double.infinity,
+                      child: PageView(
+                        controller: _controller,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image:
+                                        AssetImage("assets/images/ban1.png"))),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image:
+                                        AssetImage("assets/images/ban2.png"))),
+                          ),
+                        ],
+                      )),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  SmoothPageIndicator(
+                    controller: _controller,
+                    count: _numPages,
+                    effect: WormEffect(
+                        dotHeight: 5,
+                        dotWidth: 5,
+                        activeDotColor: ColorConstants.mainblack,
+                        dotColor: ColorConstants.maingrey),
+                  )
                 ],
               ),
             ),
