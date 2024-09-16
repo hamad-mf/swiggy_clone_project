@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:swiggy_clone_project/View/Add%20Address/add_address.dart';
+import 'package:swiggy_clone_project/View/Global_widgets/common_button2.dart';
+import 'package:swiggy_clone_project/View/Global_widgets/fooditems_card.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
 
@@ -26,7 +28,7 @@ class FoodScreen extends StatefulWidget {
 
 class _FoodScreenState extends State<FoodScreen> {
   final PageController _controller = PageController();
-  final int _numPages = 2;
+  final int _numPages = 3;
   Timer? _timer;
 
   @override
@@ -46,9 +48,6 @@ class _FoodScreenState extends State<FoodScreen> {
     });
   }
 
-
-
-
   @override
   void dispose() {
     _timer?.cancel();
@@ -56,103 +55,194 @@ class _FoodScreenState extends State<FoodScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(padding: EdgeInsets.all(8)),
-            _headerSection(context),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: ColorConstants
-                          .searchfieldbg, // Background color for the TextFormField
-                      hintText: "Search for dishes & restaurants",
-                      hintStyle:
-                          TextStyle(color: Colors.grey), // Hint text styling
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 15,
-                          horizontal: 20), // Padding inside TextFormField
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      suffixIcon: Row(
-                        mainAxisSize: MainAxisSize
-                            .min, // To make the row fit only the icons
-                        mainAxisAlignment: MainAxisAlignment
-                            .end, // Aligns the icons at the end
-                        children: [
-                          Icon(Icons.search, color: Colors.grey), // Search icon
-                          SizedBox(width: 8), // Space between the two icons
-                          Icon(Icons.mic,
-                              color: Colors.orange), // Microphone icon
-                        ],
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(padding: EdgeInsets.all(8)),
+              _headerSection(context),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: ColorConstants
+                            .searchfieldbg, // Background color for the TextFormField
+                        hintText: "Search for dishes & restaurants",
+                        hintStyle:
+                            TextStyle(color: Colors.grey), // Hint text styling
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 15,
+                            horizontal: 20), // Padding inside TextFormField
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        suffixIcon: Row(
+                          mainAxisSize: MainAxisSize
+                              .min, // To make the row fit only the icons
+                          mainAxisAlignment: MainAxisAlignment
+                              .end, // Aligns the icons at the end
+                          children: [
+                            Icon(Icons.search,
+                                color: Colors.grey), // Search icon
+                            SizedBox(width: 8), // Space between the two icons
+                            Icon(Icons.mic,
+                                color: Colors.orange), // Microphone icon
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                      height: 150,
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                        height: 150,
+                        width: double.infinity,
+                        child: PageView(
+                          controller: _controller,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                          "assets/images/ban1.png"))),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                          "assets/images/ban2.png"))),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                          "assets/images/ban3.png"))),
+                            ),
+                          ],
+                        )),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    SmoothPageIndicator(
+                      controller: _controller,
+                      count: _numPages,
+                      effect: WormEffect(
+                          dotHeight: 7,
+                          dotWidth: 7,
+                          activeDotColor: ColorConstants.mainblack,
+                          dotColor: ColorConstants.maingrey),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Container(
+                      height: 50,
                       width: double.infinity,
-                      child: PageView(
-                        controller: _controller,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image:
-                                        AssetImage("assets/images/ban1.png"))),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image:
-                                        AssetImage("assets/images/ban2.png"))),
-                          ),
-                        ],
-                      )),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  SmoothPageIndicator(
-                    controller: _controller,
-                    count: _numPages,
-                    effect: WormEffect(
-                        dotHeight: 5,
-                        dotWidth: 5,
-                        activeDotColor: ColorConstants.mainblack,
-                        dotColor: ColorConstants.maingrey),
-                  )
-                ],
+                      decoration: BoxDecoration(color: ColorConstants.buttonbg),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: 227,
+                child: ListView.separated(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => fooditems_card(),
+                    separatorBuilder: (context, index) => SizedBox(
+                          width: 10,
+                        ),
+                    itemCount: 5),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: double.infinity,
+                height: 160,
+                decoration: BoxDecoration(
+                    color: ColorConstants.mainwhite,
+                    image: DecorationImage(
+                        image: AssetImage(ImageConstants.FREE_DELIVERY_BAN))),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 15,
+                    ),
+                    common_button2(
+                      onPressed: () {},
+                      buttonText: "Filter",
+                      isIconNeeded: true,
+                      iconname: Icons.tune,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    common_button2(
+                      onPressed: () {},
+                      buttonText: "Sort by",
+                      isIconNeeded: true,
+                      iconname: Icons.keyboard_arrow_down_outlined,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    common_button2(
+                      onPressed: () {},
+                      buttonText: "Pure veg",
+                      isIconNeeded: false,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    common_button2(
+                      onPressed: () {},
+                      buttonText: "Less than",
+                      isIconNeeded: false,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
