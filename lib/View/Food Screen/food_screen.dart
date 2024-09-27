@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:swiggy_clone_project/View/Add%20Address/add_address.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/common_button.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/common_button2.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/fooditems_card.dart';
+import 'package:swiggy_clone_project/View/Global_widgets/hotelscard.dart';
+import 'package:swiggy_clone_project/View/dummy_db.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
 
@@ -70,193 +73,271 @@ class _FoodScreenState extends State<FoodScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(padding: EdgeInsets.all(8)),
-              _headerSection(context),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
+        child: Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          // Header Section
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: _headerSection(context),
+            ),
+          ),
+
+          _searchBarAndBanners(),
+
+          // Horizontal ListView for Food Items
+          _horizontalListView(),
+
+          // Free Delivery Banner
+          _banner(),
+
+          // Horizontal Buttons
+          _filterButtons(context),
+
+          SliverToBoxAdapter(
+            child: SizedBox(height: 20), // This creates the gap
+          ), // GridView for Hotels
+          _verticalListView(),
+          SliverToBoxAdapter(child: SizedBox(height: 80)),
+          _bottumText1(),
+
+          _bottumText2(),
+
+          SliverToBoxAdapter(child: SizedBox(height: 80)),
+        ],
+      ),
+    ));
+  }
+
+  SliverToBoxAdapter _bottumText2() {
+    return SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20, left: 30),
+            child: Text(
+              "Created with 💓 in Benaluru, India",
+              style: GoogleFonts.teko(
+                  textStyle: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.normal,
+                      color: ColorConstants.liveitup,
+                      height: 0.8)),
+            ),
+          ),
+        );
+  }
+
+  SliverToBoxAdapter _bottumText1() {
+    return SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30, left: 30),
+            child: Text(
+              "Live\nit up!",
+              style: GoogleFonts.teko(
+                  textStyle: TextStyle(
+                      fontSize: 100,
+                      fontWeight: FontWeight.bold,
+                      color: ColorConstants.liveitup,
+                      height: 0.8)),
+            ),
+          ),
+        );
+  }
+
+  SliverGrid _verticalListView() {
+    return SliverGrid(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+        mainAxisSpacing: 10,
+        maxCrossAxisExtent: double.infinity,
+        mainAxisExtent: 185,
+      ),
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          return hotelscard(
+            cover: dummydb2.hoteldetails[index]["cover"],
+            name: dummydb2.hoteldetails[index]["name"],
+            rating: dummydb2.hoteldetails[index]["rating"],
+            ratingC: dummydb2.hoteldetails[index]["ratingC"],
+            type: dummydb2.hoteldetails[index]["type"],
+            location: dummydb2.hoteldetails[index]["location"],
+            distance: dummydb2.hoteldetails[index]["distance"],
+            time: dummydb2.hoteldetails[index]["time"],
+          );
+        },
+        childCount: dummydb2.hoteldetails.length,
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _filterButtons(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            SizedBox(width: 15),
+            common_button2(
+              onPressed: () {
+                _filterBottomSheet(context);
+              },
+              buttonText: "Filter",
+              isIconNeeded: true,
+              iconname: Icons.tune,
+            ),
+            SizedBox(width: 10),
+            common_button2(
+              onPressed: () {},
+              buttonText: "Sort by",
+              isIconNeeded: true,
+              iconname: Icons.keyboard_arrow_down_outlined,
+            ),
+            SizedBox(width: 10),
+            common_button2(
+              onPressed: () {},
+              buttonText: "Pure veg",
+              isIconNeeded: false,
+            ),
+            SizedBox(width: 10),
+            common_button2(
+              onPressed: () {},
+              buttonText: "Less than",
+              isIconNeeded: false,
+            ),
+            SizedBox(width: 15),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _banner() {
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: 160,
+        width: double.infinity,
+        child: Container(
+          decoration: BoxDecoration(
+            color: ColorConstants.mainwhite,
+            image: DecorationImage(
+              image: AssetImage(ImageConstants.FREE_DELIVERY_BAN),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _horizontalListView() {
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: 227,
+        child: ListView.separated(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => fooditems_card(
+            img: dummydb1.fooditems[index]["img"],
+          ),
+          separatorBuilder: (context, index) => SizedBox(width: 10),
+          itemCount: dummydb1.fooditems.length,
+        ),
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _searchBarAndBanners() {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            TextFormField(
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: ColorConstants.searchfieldbg,
+                hintText: "Search for dishes & restaurants",
+                hintStyle: TextStyle(color: Colors.grey),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: ColorConstants
-                            .searchfieldbg, // Background color for the TextFormField
-                        hintText: "Search for dishes & restaurants",
-                        hintStyle:
-                            TextStyle(color: Colors.grey), // Hint text styling
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 20), // Padding inside TextFormField
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        suffixIcon: Row(
-                          mainAxisSize: MainAxisSize
-                              .min, // To make the row fit only the icons
-                          mainAxisAlignment: MainAxisAlignment
-                              .end, // Aligns the icons at the end
-                          children: [
-                            Icon(Icons.search,
-                                color: Colors.grey), // Search icon
-                            SizedBox(width: 8), // Space between the two icons
-                            Icon(Icons.mic,
-                                color: Colors.orange), // Microphone icon
-                          ],
-                        ),
+                    Icon(Icons.search, color: Colors.grey),
+                    SizedBox(width: 8),
+                    Icon(Icons.mic, color: Colors.orange),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            SizedBox(
+              height: 150,
+              width: double.infinity,
+              child: PageView(
+                controller: _controller,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage("assets/images/ban1.png"),
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage("assets/images/ban2.png"),
+                      ),
                     ),
-                    SizedBox(
-                        height: 150,
-                        width: double.infinity,
-                        child: PageView(
-                          controller: _controller,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          "assets/images/ban1.png"))),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          "assets/images/ban2.png"))),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          "assets/images/ban3.png"))),
-                            ),
-                          ],
-                        )),
-                    SizedBox(
-                      height: 12,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage("assets/images/ban3.png"),
+                      ),
                     ),
-                    SmoothPageIndicator(
-                      controller: _controller,
-                      count: _numPages,
-                      effect: WormEffect(
-                          dotHeight: 7,
-                          dotWidth: 7,
-                          activeDotColor: ColorConstants.mainblack,
-                          dotColor: ColorConstants.maingrey),
-                    ),
-                    SizedBox(
-                      height: 12,
-                    ),
-                    Container(
-                      height: 50,
-                      width: double.infinity,
-                      decoration: BoxDecoration(color: ColorConstants.buttonbg),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 227,
-                child: ListView.separated(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => fooditems_card(),
-                    separatorBuilder: (context, index) => SizedBox(
-                          width: 10,
-                        ),
-                    itemCount: 5),
+            ),
+            SizedBox(height: 12),
+            SmoothPageIndicator(
+              controller: _controller,
+              count: _numPages,
+              effect: WormEffect(
+                dotHeight: 7,
+                dotWidth: 7,
+                activeDotColor: ColorConstants.mainblack,
+                dotColor: ColorConstants.maingrey,
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                width: double.infinity,
-                height: 160,
-                decoration: BoxDecoration(
-                    color: ColorConstants.mainwhite,
-                    image: DecorationImage(
-                        image: AssetImage(ImageConstants.FREE_DELIVERY_BAN))),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 15,
-                    ),
-                    common_button2(
-                      onPressed: () {
-                        _filterBottomSheet(context);
-                      },
-                      buttonText: "Filter",
-                      isIconNeeded: true,
-                      iconname: Icons.tune,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    common_button2(
-                      onPressed: () {},
-                      buttonText: "Sort by",
-                      isIconNeeded: true,
-                      iconname: Icons.keyboard_arrow_down_outlined,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    common_button2(
-                      onPressed: () {},
-                      buttonText: "Pure veg",
-                      isIconNeeded: false,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    common_button2(
-                      onPressed: () {},
-                      buttonText: "Less than",
-                      isIconNeeded: false,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
+            ),
+            SizedBox(height: 12),
+            Container(
+              height: 50,
+              width: double.infinity,
+              decoration: BoxDecoration(color: ColorConstants.buttonbg),
+            ),
+            SizedBox(height: 5),
+          ],
         ),
       ),
     );
@@ -264,173 +345,150 @@ class _FoodScreenState extends State<FoodScreen> {
 
   Future<dynamic> _filterBottomSheet(BuildContext context) {
     return showModalBottomSheet(
-                        backgroundColor: Colors.white,
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (BuildContext context) {
-                          return StatefulBuilder(
-                            builder: (BuildContext context, setState) {
-                              return SizedBox(
-                                height: 700, // Adjust height as needed
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: [
-                                    // Close button and title
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, setState) {
+            return SizedBox(
+              height: 700, // Adjust height as needed
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Close button and title
 
-                                    Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text(
-                                            'Filter Page',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          IconButton(
-                                            icon: const Icon(Icons.close),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Filter Page',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
 
-                                    Stack(children: [
-                                      Row(
-                                        children: [
-                                          // Left side: Vertical Tabs
-                                          Container(
-                                            height: 620,
-                                            width:
-                                                180, // Fixed width for vertical tabs
-                                            color: Colors.white,
-                                            child: ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: _tabs.length,
-                                              itemBuilder: (context, index) {
-                                                return InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _selectedTabIndex =
-                                                          index;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 16,
-                                                            left: 0),
-                                                    color:
-                                                        _selectedTabIndex ==
-                                                                index
-                                                            ? Colors.white
-                                                            : Colors
-                                                                .transparent,
-                                                    child: Row(
-                                                      children: [
-                                                        Container(
-                                                          width: 8,
-                                                          height: 70,
-                                                          color: _selectedTabIndex ==
-                                                                  index
-                                                              ? Colors.orange
-                                                                  .shade600
-                                                              : Colors
-                                                                  .transparent,
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        Text(
-                                                          _tabs[index],
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                            fontSize: 16,
-                                                            color: _selectedTabIndex ==
-                                                                    index
-                                                                ? Colors
-                                                                    .orange
-                                                                    .shade900
-                                                                : Colors
-                                                                    .black,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                          // Right side: Tab Content
-                                          Container(
-                                            height: 620,
-                                            width: 212.7,
-                                            padding: const EdgeInsets.all(0),
-                                            color: Colors.white,
-                                            child: Column(
-                                              children: [
-                                                _tabContents[
-                                                    _selectedTabIndex],
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                  Stack(children: [
+                    Row(
+                      children: [
+                        // Left side: Vertical Tabs
+                        Container(
+                          height: 620,
+                          width: 180, // Fixed width for vertical tabs
+                          color: Colors.white,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _tabs.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    _selectedTabIndex = index;
+                                  });
+                                },
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.only(right: 16, left: 0),
+                                  color: _selectedTabIndex == index
+                                      ? Colors.white
+                                      : Colors.transparent,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 8,
+                                        height: 70,
+                                        color: _selectedTabIndex == index
+                                            ? Colors.orange.shade600
+                                            : Colors.transparent,
                                       ),
-                                      Positioned(
-                                        bottom: 0,
-                                        child: Container(
-                                          height: 85,
-                                          width: 392.7,
-                                          color: Colors.white,
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 20),
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 25,
-                                                ),
-                                                Text(
-                                                  "Clear FIlters",
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      color: ColorConstants
-                                                          .retrytxt),
-                                                ),
-                                                SizedBox(
-                                                  width: 65,
-                                                ),
-                                                CommonButton(
-                                                    width: 150,
-                                                    height: 50,
-                                                    buttonText: "Apply",
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    })
-                                              ],
-                                            ),
-                                          ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        _tabs[index],
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: _selectedTabIndex == index
+                                              ? Colors.orange.shade900
+                                              : Colors.black,
                                         ),
-                                      )
-                                    ]),
-                                  ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },
-                          );
-                        },
-                      );
+                          ),
+                        ),
+                        // Right side: Tab Content
+                        Container(
+                          height: 620,
+                          width: 212.7,
+                          padding: const EdgeInsets.all(0),
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              _tabContents[_selectedTabIndex],
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      child: Container(
+                        height: 85,
+                        width: 392.7,
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 25,
+                              ),
+                              Text(
+                                "Clear FIlters",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: ColorConstants.retrytxt),
+                              ),
+                              SizedBox(
+                                width: 65,
+                              ),
+                              CommonButton(
+                                  width: 150,
+                                  height: 50,
+                                  buttonText: "Apply",
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  })
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ]),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   Column _headerSection(BuildContext context) {
@@ -566,13 +624,6 @@ class _FoodScreenState extends State<FoodScreen> {
     );
   }
 }
-
-
-
-
-
-
-
 
 //filter tab contents
 

@@ -10,4 +10,8 @@ class ColorConstants {
   static Color retrytxt = Color(0xff69696a);
   static Color profilebg = Color(0xff535359);
   static Color searchfieldbg = Color(0xfff0f0f4);
+  static Color liveitup = Color(0xfff868689);
+  static Color lightblue = Color(0xfffefe9ff);
+  static Color bluetext = Color(0xfff6543cb);
+  static Color ratingbox = Color(0xff016548);
 }
