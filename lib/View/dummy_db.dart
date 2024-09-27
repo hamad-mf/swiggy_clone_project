@@ -1,42 +1,60 @@
 class dummydb1 {
   static List fooditems = [
     {
+      "name": "Amul Ice Cream Parlour",
+      "time": "35-50",
       "img":
           "https://images.pexels.com/photos/8589559/pexels-photo-8589559.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     },
     {
+      "name": "Malabar Fried Chicken",
+      "time": "25-40",
       "img":
           "https://images.pexels.com/photos/60616/fried-chicken-chicken-fried-crunchy-60616.jpeg?auto=compress&cs=tinysrgb&w=600",
     },
     {
+      "name": "Kerala Meals House",
+      "time": "30-45",
       "img":
           "https://images.pexels.com/photos/1337824/pexels-photo-1337824.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     },
     {
+      "name": "Cochin Curry Delight",
+      "time": "40-55",
       "img":
           "https://images.pexels.com/photos/4877838/pexels-photo-4877838.jpeg?auto=compress&cs=tinysrgb&w=600",
     },
     {
+      "name": "Spice Coast Restaurant",
+      "time": "30-50",
       "img":
           "https://images.pexels.com/photos/23897674/pexels-photo-23897674/free-photo-of-curry-chicken-in-bowl-on-table.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     },
     {
+      "name": "Alleppey Sea Food Corner",
+      "time": "20-35",
       "img":
           "https://images.pexels.com/photos/2347383/pexels-photo-2347383.jpeg?auto=compress&cs=tinysrgb&w=600",
     },
     {
+      "name": "Backwater Dosa Kadai",
+      "time": "15-30",
       "img":
           "https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?auto=compress&cs=tinysrgb&w=600",
     },
     {
+      "name": "Munnar Masala House",
+      "time": "25-45",
       "img":
           "https://imgs.search.brave.com/wXtI2Ayq75R7v36o5e881IvmfqvCRRe5NkOkwqb2s5Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTQ2/ODcwNDcwMi9waG90/by9tYXNhbGEtZG9z/YS5qcGc_cz02MTJ4/NjEyJnc9MCZrPTIw/JmM9bXVJX2YzeUtn/cEZDMDVMM1Q3bmU5/X1ZKWmUwSVpfWTF3/VUszYlRaV0JQZz0",
     },
     {
+      "name": "Kottayam Biriyani Hut",
+      "time": "35-55",
       "img":
           "https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=600",
     },
-  ];
+];
 }
 
 class dummydb2 {

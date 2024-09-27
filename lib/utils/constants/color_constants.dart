@@ -14,4 +14,5 @@ class ColorConstants {
   static Color lightblue = Color(0xfffefe9ff);
   static Color bluetext = Color(0xfff6543cb);
   static Color ratingbox = Color(0xff016548);
+  static Color savetoearlier = Color(0xfffadce7);
 }

@@ -112,36 +112,36 @@ class _FoodScreenState extends State<FoodScreen> {
 
   SliverToBoxAdapter _bottumText2() {
     return SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20, left: 30),
-            child: Text(
-              "Created with 💓 in Benaluru, India",
-              style: GoogleFonts.teko(
-                  textStyle: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.normal,
-                      color: ColorConstants.liveitup,
-                      height: 0.8)),
-            ),
-          ),
-        );
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20, left: 30),
+        child: Text(
+          "Created with 💓 in Benaluru, India",
+          style: GoogleFonts.teko(
+              textStyle: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.normal,
+                  color: ColorConstants.liveitup,
+                  height: 0.8)),
+        ),
+      ),
+    );
   }
 
   SliverToBoxAdapter _bottumText1() {
     return SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 30, left: 30),
-            child: Text(
-              "Live\nit up!",
-              style: GoogleFonts.teko(
-                  textStyle: TextStyle(
-                      fontSize: 100,
-                      fontWeight: FontWeight.bold,
-                      color: ColorConstants.liveitup,
-                      height: 0.8)),
-            ),
-          ),
-        );
+      child: Padding(
+        padding: const EdgeInsets.only(top: 30, left: 30),
+        child: Text(
+          "Live\nit up!",
+          style: GoogleFonts.teko(
+              textStyle: TextStyle(
+                  fontSize: 100,
+                  fontWeight: FontWeight.bold,
+                  color: ColorConstants.liveitup,
+                  height: 0.8)),
+        ),
+      ),
+    );
   }
 
   SliverGrid _verticalListView() {
@@ -236,6 +236,13 @@ class _FoodScreenState extends State<FoodScreen> {
           padding: EdgeInsets.symmetric(horizontal: 20),
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => fooditems_card(
+            type: dummydb2.hoteldetails[index]["type"],
+            rating: dummydb2.hoteldetails[index]["rating"],
+            ratingC: dummydb2.hoteldetails[index]["ratingC"],
+            location: dummydb2.hoteldetails[index]["location"],
+            distance: dummydb2.hoteldetails[index]["distance"],
+            name: dummydb2.hoteldetails[index]["name"],
+            time: dummydb2.hoteldetails[index]["time"],
             img: dummydb1.fooditems[index]["img"],
           ),
           separatorBuilder: (context, index) => SizedBox(width: 10),

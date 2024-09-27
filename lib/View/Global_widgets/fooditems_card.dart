@@ -5,8 +5,22 @@ import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
 
 class fooditems_card extends StatelessWidget {
   final String img;
+  final String rating;
+  final String ratingC;
+  final String name;
+  final String time;
+  final String distance;
+  final String location;
+  final String type;
   const fooditems_card({
+    required this.distance,
+    required this.location,
+    required this.rating,
+    required this.ratingC,
+    required this.type,
     required this.img,
+    required this.name,
+    required this.time,
     super.key,
   });
 
@@ -15,7 +29,15 @@ class fooditems_card extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => HotelItemsScreen()));
+            MaterialPageRoute(builder: (context) => HotelItemsScreen(
+              distance: distance,
+              location: location,
+              type: type,
+              time: time,
+              rating: rating,
+              ratingC: ratingC,
+              name: name,
+            )));
       },
       child: Container(
         height: 206,
@@ -66,9 +88,10 @@ class fooditems_card extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Amul Ice Cream Parlour",
+                      "$name",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -83,7 +106,7 @@ class fooditems_card extends StatelessWidget {
                     Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "50-65 mins",
+                          "$time mins",
                           style: TextStyle(color: ColorConstants.retrytxt),
                         ))
                   ],

@@ -8,7 +8,23 @@ import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
 
 class HotelItemsScreen extends StatefulWidget {
-  const HotelItemsScreen({super.key});
+  final String rating;
+  final String ratingC;
+  final String name;
+  final String time;
+  final String distance;
+  final String location;
+  final String type;
+  const HotelItemsScreen({
+    super.key,
+    required this.distance,
+    required this.type,
+    required this.location,
+    required this.rating,
+    required this.time,
+    required this.name,
+    required this.ratingC,
+  });
 
   @override
   State<HotelItemsScreen> createState() => _HotelItemsScreenState();
@@ -16,7 +32,8 @@ class HotelItemsScreen extends StatefulWidget {
 
 class _HotelItemsScreenState extends State<HotelItemsScreen> {
   bool onoroff = true;
-  bool _isExpanded = false;
+  bool _isrecExpanded = true;
+  bool _isISCExpanded = true;
   final _controller = ValueNotifier<bool>(false);
 
   @override
@@ -156,7 +173,7 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
                                     size: 18,
                                   ),
                                   Text(
-                                    " 4.1",
+                                    "${widget.rating}",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       color: ColorConstants.mainwhite,
@@ -170,7 +187,7 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
                             top: 50,
                             right: 21,
                             child: Text(
-                              "50 ratings",
+                              "${widget.ratingC}",
                               style: TextStyle(
                                 fontSize: 11,
                                 color: ColorConstants.retrytxt,
@@ -181,7 +198,7 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
                             top: 55,
                             left: 20,
                             child: Text(
-                              "Amul Ice Cream Parlour",
+                              "${widget.name}",
                               style: TextStyle(
                                 color: ColorConstants.mainblack,
                                 fontWeight: FontWeight.bold,
@@ -193,7 +210,7 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
                             top: 85,
                             left: 20,
                             child: Text(
-                              "50-55 min",
+                              "${widget.time} min",
                               style: TextStyle(
                                 color: ColorConstants.mainblack,
                                 fontWeight: FontWeight.w600,
@@ -213,7 +230,7 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
                             top: 85,
                             left: 110,
                             child: Text(
-                              "9 km",
+                              "${widget.distance}",
                               style: TextStyle(
                                 color: ColorConstants.mainblack,
                                 fontWeight: FontWeight.w600,
@@ -233,7 +250,7 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
                             top: 85,
                             left: 160,
                             child: Text(
-                              "Kodungallur",
+                              "${widget.location}",
                               style: TextStyle(
                                 color: ColorConstants.mainblack,
                                 fontWeight: FontWeight.w600,
@@ -253,7 +270,7 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
                             top: 115,
                             left: 20,
                             child: Text(
-                              "Ice Cream , Beverages",
+                              "${widget.type}",
                               style: TextStyle(
                                 color: ColorConstants.retrytxt,
                                 fontSize: 15,
@@ -629,7 +646,7 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
               title: InkWell(
                 onTap: () {
                   setState(() {
-                    _isExpanded = !_isExpanded;
+                    _isrecExpanded = !_isrecExpanded;
                   });
                 },
                 child: Text(
@@ -643,11 +660,11 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
               ),
               trailing: IconButton(
                 icon: Icon(
-                  _isExpanded ? Icons.expand_less : Icons.expand_more,
+                  _isrecExpanded ? Icons.expand_less : Icons.expand_more,
                 ),
                 onPressed: () {
                   setState(() {
-                    _isExpanded = !_isExpanded;
+                    _isrecExpanded = !_isrecExpanded;
                   });
                 },
               ),
@@ -655,7 +672,7 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
           ),
 
           // Expandable grid
-          if (_isExpanded)
+          if (_isrecExpanded)
             SliverPadding(
               padding: const EdgeInsets.all(8.0),
               sliver: SliverGrid(
@@ -663,7 +680,7 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
                   crossAxisCount: 1, // Number of columns
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
-                  childAspectRatio: 2, // Aspect ratio for the grid items
+                  childAspectRatio: 1.7, // Aspect ratio for the grid items
                 ),
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
@@ -676,9 +693,64 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
 
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 40,
+              height: 20,
             ),
-          )
+          ),
+          SliverToBoxAdapter(
+            child: ListTile(
+              title: InkWell(
+                onTap: () {
+                  setState(() {
+                    _isISCExpanded = !_isISCExpanded;
+                  });
+                },
+                child: Text(
+                  "Ice Cream Shakes (4)",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              trailing: IconButton(
+                icon: Icon(
+                  _isISCExpanded ? Icons.expand_less : Icons.expand_more,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isISCExpanded = !_isISCExpanded;
+                  });
+                },
+              ),
+            ),
+          ),
+
+          // Expandable grid
+          if (_isISCExpanded)
+            SliverPadding(
+              padding: const EdgeInsets.all(8.0),
+              sliver: SliverGrid(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1, // Number of columns
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 1.7, // Aspect ratio for the grid items
+                ),
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return items();
+                  },
+                  childCount: 4, // Number of items in the grid
+                ),
+              ),
+            ),
+
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 20,
+            ),
+          ),
         ],
       ),
     );

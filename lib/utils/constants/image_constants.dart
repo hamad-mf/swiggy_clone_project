@@ -11,5 +11,5 @@ class ImageConstants {
   static const String HOTEL_COVER1 = "assets/images/hotel1.png";
   static const String DISCOUNT = "assets/images/discount.png";
   static const String WELCOME = "assets/images/welcome.png";
+  static const String BESTSELLER = "assets/images/bestseller.png";
 }
-
