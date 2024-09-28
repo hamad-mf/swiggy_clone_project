@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 
 class items extends StatelessWidget {
+  final String dishname;
+  final String price;
+  final String description;
+  final String img;
   const items({
+    required this.description,
+    required this.dishname,
+    required this.img,
+    required this.price,
     super.key,
   });
 
@@ -49,17 +57,22 @@ class items extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 10),
-                  Text(
-                    "Veg Burger",
-                    style: TextStyle(
-                      color: ColorConstants.mainblack,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                  Container(
+                    width: 150,
+                    child: Text(
+                      "$dishname",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: ColorConstants.mainblack,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    "₹144",
+                    "₹$price",
                     style: TextStyle(
                       color: ColorConstants.mainblack,
                       fontWeight: FontWeight.w600,
@@ -94,7 +107,7 @@ class items extends StatelessWidget {
                   Container(
                     width: 180,
                     child: Text(
-                      "A yummy burger with a perfectly grilled patty, melted cheese, and fresh lettuce is the ultimate comfort food, satisfying every craving. Topped with ripe tomatoes, tangy pickles, and a dollop of creamy mayo, it’s a feast for the senses. Each bite is a delightful explosion of flavors that makes it hard to resist.",
+                      "$description",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -112,9 +125,7 @@ class items extends StatelessWidget {
               decoration: BoxDecoration(
                   color: ColorConstants.primaryColor,
                   image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                          "https://images.pexels.com/photos/1639562/pexels-photo-1639562.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")),
+                      fit: BoxFit.cover, image: NetworkImage("$img")),
                   borderRadius: BorderRadius.circular(12)),
             ),
           ),

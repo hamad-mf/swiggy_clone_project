@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swiggy_clone_project/View/Hotel%20Items%20Screen/hotel_items_screen.dart';
 
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
-import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
+
 
 class hotelscard extends StatelessWidget {
   final String cover;
