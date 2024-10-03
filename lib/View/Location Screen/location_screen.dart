@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:swiggy_clone_project/View/Add%20Address/add_address.dart';
 import 'package:swiggy_clone_project/View/Allow%20Notification/allow_notification.dart';
-import 'package:swiggy_clone_project/View/Bottom%20Navbar%20Screen/bottom_navbar_Screen.dart';
+
 import 'package:swiggy_clone_project/View/Global_widgets/common_button.dart';
 
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
@@ -101,7 +101,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   Positioned(
                     bottom: 95,
                     right: 0,
-                    left: 100,
+                    left: 107,
                     child: InkWell(
                       onTap: () {
                         Navigator.push(

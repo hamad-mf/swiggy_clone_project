@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:swiggy_clone_project/View/Add%20New%20Address/add_new_adress.dart';
 import 'package:swiggy_clone_project/View/Allow%20Notification/allow_notification.dart';
-import 'package:swiggy_clone_project/View/Bottom%20Navbar%20Screen/bottom_navbar_Screen.dart';
+
 
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 

@@ -5,6 +5,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/common_button.dart';
 
 import 'package:swiggy_clone_project/View/Location%20Screen/location_screen.dart';
+import 'package:swiggy_clone_project/View/dummy_db.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 
 import 'dart:async';
@@ -251,6 +252,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     return CommonButton(
         buttonText: "Continue",
         onPressed: () {
+          DummyDb0.userddetails[0]["mobno"] = widget.mobno;
           setState(() {
             if (_otpcontroller.text == widget.otp) {
               _isOtpInvalid = false; // means otp is valid

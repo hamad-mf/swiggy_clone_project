@@ -1,4 +1,4 @@
-import 'dart:async';
+
 
 import 'package:flutter/material.dart';
 
@@ -36,7 +36,7 @@ class _HotelItemsScreenState extends State<HotelItemsScreen> {
   bool onoroff = true;
   bool _isrecExpanded = true;
   bool _isISCExpanded = true;
-  final _controller = ValueNotifier<bool>(false);
+ 
 
   @override
   Widget build(BuildContext context) {

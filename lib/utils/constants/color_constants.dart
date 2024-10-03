@@ -15,4 +15,8 @@ class ColorConstants {
   static Color bluetext = Color(0xfff6543cb);
   static Color ratingbox = Color(0xff016548);
   static Color savetoearlier = Color(0xfffadce7);
+  static Color addpagebg = Color(0xfff1f1f4);
+  static Color FYF = Color(0xfff01f7a6);
+  static Color SCAFFOLD_BG = Color(0xfff0f0f7);
+  static Color WHITE_DIM1 = Color(0xffd5faec);
 }

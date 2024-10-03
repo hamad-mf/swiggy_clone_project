@@ -12,4 +12,12 @@ class ImageConstants {
   static const String DISCOUNT = "assets/images/discount.png";
   static const String WELCOME = "assets/images/welcome.png";
   static const String BESTSELLER = "assets/images/bestseller.png";
+  static const String CREDITCARD = "assets/images/swiggy_cc.png";
+  static const String SPARKLE = "assets/images/sparkle.png";
+  static const String SWIGGY_TXT_LOGO = "assets/images/swiiggy_txt_logo.png";
+  static const String MULTIPLE_LOGOS = "assets/images/multiple_logo.png";
+  static const String CARD_CASHBACK = "assets/images/card_screen_cashback.png";
+  static const String FLAG = "assets/images/flag_png.png";
+  static const String BED = "assets/images/bed.png";
+  static const String MONEY = "assets/images/money_png.png";
 }

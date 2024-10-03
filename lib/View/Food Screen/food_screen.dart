@@ -9,6 +9,7 @@ import 'package:swiggy_clone_project/View/Global_widgets/common_button.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/common_button2.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/fooditems_card.dart';
 import 'package:swiggy_clone_project/View/Global_widgets/hotelscard.dart';
+import 'package:swiggy_clone_project/View/Profile%20Screen/profile_screen.dart';
 import 'package:swiggy_clone_project/View/dummy_db.dart';
 import 'package:swiggy_clone_project/utils/constants/color_constants.dart';
 import 'package:swiggy_clone_project/utils/constants/image_constants.dart';
@@ -97,7 +98,7 @@ class _FoodScreenState extends State<FoodScreen> {
           _filterButtons(context),
 
           SliverToBoxAdapter(
-            child: SizedBox(height: 20), // This creates the gap
+            child: SizedBox(height: 20),
           ), // GridView for Hotels
           _verticalListView(),
           SliverToBoxAdapter(child: SizedBox(height: 80)),
@@ -441,7 +442,7 @@ class _FoodScreenState extends State<FoodScreen> {
                             },
                           ),
                         ),
-                        // Right side: Tab Content
+
                         Container(
                           height: 620,
                           width: 212.7,
@@ -619,11 +620,19 @@ class _FoodScreenState extends State<FoodScreen> {
             Positioned(
                 right: 20,
                 top: 8,
-                child: CircleAvatar(
-                  backgroundColor: ColorConstants.profilebg,
-                  child: Icon(
-                    Icons.person,
-                    color: ColorConstants.mainwhite,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileScreen()));
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: ColorConstants.profilebg,
+                    child: Icon(
+                      Icons.person,
+                      color: ColorConstants.mainwhite,
+                    ),
                   ),
                 ))
           ],

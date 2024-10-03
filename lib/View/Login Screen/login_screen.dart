@@ -138,6 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       builder: (context) => OtpVerificationScreen(
                             otp: otp,
                             mobno: _mobilenocontroller.text,
+                            
                           )));
             } else {
               //error message
