@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:swiggy_clone_project/View/Add%20Address/add_address.dart';
+
 import 'package:swiggy_clone_project/View/Add%20New%20Address/add_new_adress.dart';
 import 'package:swiggy_clone_project/View/Card%20Screen/card_screen.dart';
 import 'package:swiggy_clone_project/View/Get%20Started%20Screen/get_started_screen.dart';
